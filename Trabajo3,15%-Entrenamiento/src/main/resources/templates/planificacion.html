@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Planificación Deportiva - Entrenamiento</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }
+        th, td { border: 2px solid #f10000; padding: 8px; text-align: left; }
+        th { background-color: #ffffff; }
+    </style>
+</head>
+<body>
+    <h1>Entrenador: <span th:text="${planificacion.entrenador}"></span></h1>
+    <p><strong>Sede:</strong> <span th:text="${planificacion.sede}"></span></p>
+    <p><strong>Tipo de Práctica:</strong> <span th:text="${planificacion.tipoPractica.nombre}"></span></p>
+    <p><strong>Categoría:</strong> <span th:text="${planificacion.categoria.nombre}"></span></p>
+
+    <h2>Punto 1</h2>
+    <table>
+        <tr>
+            <th>Ejercicio</th>
+            <th>Deportista</th>
+            <th>Duración (min)</th>
+            <th>Tipo de Práctica</th>
+            <th>Categoría</th>
+            <th>Conteo (repeticiones por serie)</th>
+        </tr>
+        <tr th:each="p : ${planificacion.practicas}">
+            <td th:text="${p.nombreEjercicio}"></td>
+            <td th:text="${p.deportista}"></td>
+            <td th:text="${p.duracionMinutos}"></td>
+            <td th:text="${p.tipoPractica.nombre}"></td>
+            <td th:text="${p.categoria.nombre}"></td>
+            <td>
+                <span th:if="${#lists.isEmpty(p.conteo)}">Sin registros (0)</span>
+                <span th:each="n : ${p.conteo}" th:text="${n} + ' '"></span>
+            </td>
+        </tr>
+    </table>
+
+    <h2>Punto 2(Recorrido Con ListIterator)</h2>
+    <ul>
+        <li th:each="m : ${mensajesPila}" th:text="${m}"></li>
+    </ul>
+
+    <h2>Punto 2(Recorrido con Iterator)</h2>
+    <ul>
+        <li th:each="m : ${mensajesDeque}" th:text="${m}"></li>
+    </ul>
+
+    <h2>Punto 3</h2>
+    <ul>
+        <li th:each="m : ${filtrados}" th:text="${m}"></li>
+    </ul>
+
+    <h2>Punto 4</h2>
+    <ul>
+        <li th:each="s : ${sumas}" th:text="${s}"></li>
+    </ul>
+
+    <h2>Punto 5</h2>
+    <ul>
+        <li th:text="${totales}"></li>
+    </ul>
+</body>
+</html>
